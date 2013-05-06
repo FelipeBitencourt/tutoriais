@@ -18,10 +18,18 @@ public class CadastroEmail extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_email);
-	}
-
-	public void onClickCadastra() {
 		text = (TextView) findViewById(R.id.resultado);
+		Intent it = getIntent();
+		if (it != null) {
+			int amg = it.getIntExtra("amg", 0);
+			if (amg != 0) {
+				text.setText(Integer.toString(amg));
+			}
+		}
+	}
+	
+	public void onClickCadastra() {
+		/*text = (TextView) findViewById(R.id.resultado);
 		edit_nome = (EditText) findViewById(R.id.editText1);
 		edit_email = (EditText) findViewById(R.id.editText2);
 
@@ -35,11 +43,11 @@ public class CadastroEmail extends Activity {
 				ArrayList<String> email = new ArrayList<String>();
 
 				for (int x = 0; x < n; x++) {
-					nome.add(x,edit_nome.getText().toString());
-					email.add(x,edit_email.getText().toString());
+					nome.add(x, edit_nome.getText().toString());
+					email.add(x, edit_email.getText().toString());
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override

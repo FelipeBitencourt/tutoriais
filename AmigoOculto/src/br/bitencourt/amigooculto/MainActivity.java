@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	}
 	public void onClickCadastro(View v){
 		Intent it = new Intent(this,CadastroEmail.class);
-		String amigos = edit.getText().toString();
+		int amigos = Integer.parseInt(edit.getText().toString());
 		it.putExtra("amg", amigos);
 		startActivity(it);
 	}
