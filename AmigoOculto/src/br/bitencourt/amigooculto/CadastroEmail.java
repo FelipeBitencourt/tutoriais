@@ -18,6 +18,14 @@ public class CadastroEmail extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_email);
+		text = (TextView) findViewById(R.id.resultado);
+		Intent it = getIntent();
+		if (it != null) {
+			String amg = it.getStringExtra("amg");
+			if (amg != null) {
+				text.setText(amg);
+			}
+		}
 	}
 
 	public void onClickCadastra() {
