@@ -88,7 +88,7 @@ public class CadastroEmail extends Activity {
 		emailIntent.setType("plain/text");
 		this.nome.remove(sorteador.get(n));
 		this.email.remove(n);
-		n++;
+		n++; //retirar essa linha, quando remove elemento do array, o próximo ocupa o espaço do que foi retirado
 		if (this.email.size() == 0) {
 			Toast.makeText(this, "Todos os nomes já foram sorteados!",
 					Toast.LENGTH_SHORT).show();
