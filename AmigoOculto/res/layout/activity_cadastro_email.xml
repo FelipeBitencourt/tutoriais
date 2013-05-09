@@ -87,13 +87,15 @@
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/emails" />
+            android:text="@string/emails"
+            android:onClick="onClickCadastra" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sortear" />
+            android:text="@string/sortear" 
+            android:onClick="onClickSortear"/>
 
     </LinearLayout>
 

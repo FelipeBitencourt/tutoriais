@@ -4,7 +4,7 @@
     <string name="app_name">Amigo Oculto</string>
     <string name="action_settings">Settings</string>
     <string name="numbers_friends">Número de Amigos</string>
-    <string name="text_numbers_friends">Amigos</string>
+    <string name="text_numbers_friends">Quantidade de Amigos</string>
     <string name="emails">Cadastrar Emails</string>
     <string name="title_activity_cadastro_email">CadastroEmail</string>
     <string name="name">Nome: </string>
