@@ -76,19 +76,19 @@ public class CadastroEmail extends Activity {
 
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 
-		while (this.email.get(n) == this.nome.get(sorteador.get(n))) {
+		while (this.email.indexOf(0) == this.nome.indexOf(sorteador.get(0))) {
 			Collections.shuffle(sorteador);
 		}
 
-		String[] recipients = new String[] { this.email.get(n) };
+		String[] recipients = new String[] { this.email.get(0) };
 		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Amigo Oculto");
 		emailIntent
-				.putExtra(Intent.EXTRA_TEXT, this.nome.get(sorteador.get(n)));
+				.putExtra(Intent.EXTRA_TEXT, this.nome.get(sorteador.get(0)));
 		emailIntent.setType("plain/text");
-		this.nome.remove(sorteador.get(n));
-		this.email.remove(n);
-		n++; //retirar essa linha, quando remove elemento do array, o próximo ocupa o espaço do que foi retirado
+		this.nome.remove(sorteador.get(0));
+		this.email.remove(0);
+
 		if (this.email.size() == 0) {
 			Toast.makeText(this, "Todos os nomes já foram sorteados!",
 					Toast.LENGTH_SHORT).show();
