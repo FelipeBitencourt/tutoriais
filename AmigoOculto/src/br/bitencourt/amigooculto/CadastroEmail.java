@@ -94,6 +94,7 @@ public class CadastroEmail extends Activity {
 		edit_nome.setEnabled(false);
 		edit_email.setEnabled(false);
 
+<<<<<<< HEAD
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 
 		String[] recipients = new String[] { email.get(0) };
@@ -103,6 +104,26 @@ public class CadastroEmail extends Activity {
 				+ nome.get(0));
 		emailIntent.setType("plain/text");
 		System.out.println("Nomes antes da exclusão: " + nome);
+=======
+		while (this.email.indexOf(0) == this.nome.indexOf(sorteador.get(0))) {
+			Collections.shuffle(sorteador);
+		}
+
+		String[] recipients = new String[] { this.email.get(0) };
+		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Amigo Oculto");
+		emailIntent
+				.putExtra(Intent.EXTRA_TEXT, this.nome.get(sorteador.get(0)));
+		emailIntent.setType("plain/text");
+		this.nome.remove(sorteador.get(0));
+		this.email.remove(0);
+
+		if (this.email.size() == 0) {
+			Toast.makeText(this, "Todos os nomes já foram sorteados!",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+>>>>>>> fdaec2693c93f7eeb0fb7518268fac631ed48b59
 		startActivity(Intent.createChooser(emailIntent, "Send Email"));
 		nome.remove(0);
 		email.remove(0);
