@@ -22,7 +22,6 @@ public class CadastroEmail extends Activity {
 	List<String> nome;
 	List<String> email;
 	List<String> clone;
-	int n = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +64,18 @@ public class CadastroEmail extends Activity {
 
 		text_enviado.setText(Integer.toString(x));
 		if (x == amg) {
-			/*
-			 * sorteador = new ArrayList<Integer>(); for (int i = 0; i <
-			 * nome.size(); i++) { sorteador.add(i); }
-			 */
-			long seed = System.nanoTime();
-			System.out.println("Nomes antes do shuffle: " + nome);
+			
 			Collections.shuffle(nome);
-
-			System.out.println("Nomes depois do shuffle: " + nome);
 		}
 	}
 
 	public void onClickSortear(View v) {
+		
+		if(email.size() != amg){
+			Toast.makeText(this, "Você não cadastrou todos os emails!",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 
 		if (email.isEmpty()) {
 			Toast.makeText(this, "Todos os nomes já foram sorteados!",
@@ -87,14 +85,12 @@ public class CadastroEmail extends Activity {
 		if (nome.size() != 1) {
 			while (nome.get(0).equals(clone.get(0))) {
 				Collections.shuffle(nome);
-				System.out.println("Realizou uma troca!");
 			}
 		}
 
 		edit_nome.setEnabled(false);
 		edit_email.setEnabled(false);
 
-<<<<<<< HEAD
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 
 		String[] recipients = new String[] { email.get(0) };
@@ -103,32 +99,9 @@ public class CadastroEmail extends Activity {
 		emailIntent.putExtra(Intent.EXTRA_TEXT, "Seu amigo secreto é o(a) "
 				+ nome.get(0));
 		emailIntent.setType("plain/text");
-		System.out.println("Nomes antes da exclusão: " + nome);
-=======
-		while (this.email.indexOf(0) == this.nome.indexOf(sorteador.get(0))) {
-			Collections.shuffle(sorteador);
-		}
-
-		String[] recipients = new String[] { this.email.get(0) };
-		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
-		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Amigo Oculto");
-		emailIntent
-				.putExtra(Intent.EXTRA_TEXT, this.nome.get(sorteador.get(0)));
-		emailIntent.setType("plain/text");
-		this.nome.remove(sorteador.get(0));
-		this.email.remove(0);
-
-		if (this.email.size() == 0) {
-			Toast.makeText(this, "Todos os nomes já foram sorteados!",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
->>>>>>> fdaec2693c93f7eeb0fb7518268fac631ed48b59
 		startActivity(Intent.createChooser(emailIntent, "Send Email"));
 		nome.remove(0);
 		email.remove(0);
-		System.out.println("Nomes depois da exclusão: " + nome);
-		System.out.println("CLONE: " + clone);
 		return;
 
 	}

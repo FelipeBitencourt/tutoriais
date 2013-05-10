@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
 		while (amigos <= 1) {
 			Toast.makeText(this, "Você deve cadastrar no mínimo 2 amigos!",
 					Toast.LENGTH_SHORT).show();
-			amigos = Integer.parseInt(edit.getText().toString());
 			return;
 		}
 		it.putExtra("amg", amigos);
