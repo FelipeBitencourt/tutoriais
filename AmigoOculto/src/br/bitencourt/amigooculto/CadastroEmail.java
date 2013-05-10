@@ -1,7 +1,9 @@
 package br.bitencourt.amigooculto;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,9 +19,9 @@ public class CadastroEmail extends Activity {
 	EditText edit_nome;
 	EditText edit_email;
 	int x = 0, amg;
-	ArrayList<String> nome;
-	ArrayList<String> email;
-	ArrayList<Integer> sorteador;
+	List<String> nome;
+	List<String> email;
+	List<String> clone;
 	int n = 0;
 
 	@Override
@@ -34,11 +36,12 @@ public class CadastroEmail extends Activity {
 				text.setText(Integer.toString(this.amg));
 			}
 		}
-		this.nome = new ArrayList<String>();
-		this.email = new ArrayList<String>();
+		nome = new LinkedList<String>();
+		email = new LinkedList<String>();
+		clone = new LinkedList<String>();
 
-		this.edit_nome = (EditText) findViewById(R.id.editText1);
-		this.edit_email = (EditText) findViewById(R.id.editText2);
+		edit_nome = (EditText) findViewById(R.id.editText1);
+		edit_email = (EditText) findViewById(R.id.editText2);
 	}
 
 	public void onClickCadastra(View v) {
@@ -51,50 +54,62 @@ public class CadastroEmail extends Activity {
 		text_enviado = (TextView) findViewById(R.id.enviado);
 
 		text.setText(Integer.toString(this.amg));
-		this.nome.add(x, edit_nome.getText().toString());
-		this.email.add(x, edit_email.getText().toString());
+		nome.add(edit_nome.getText().toString());
+		clone.add(edit_nome.getText().toString());
+		email.add(edit_email.getText().toString());
 
-		this.edit_nome.setText("");
-		this.edit_email.setText("");
+		edit_nome.setText("");
+		edit_email.setText("");
 
 		x++;
 
 		text_enviado.setText(Integer.toString(x));
 		if (x == amg) {
-			for (int i = 0; i < this.nome.size(); i++) {
-				this.sorteador = new ArrayList<Integer>();
-				this.sorteador.add(i);
-			}
-			Collections.shuffle(sorteador);
+			/*
+			 * sorteador = new ArrayList<Integer>(); for (int i = 0; i <
+			 * nome.size(); i++) { sorteador.add(i); }
+			 */
+			long seed = System.nanoTime();
+			System.out.println("Nomes antes do shuffle: " + nome);
+			Collections.shuffle(nome);
+
+			System.out.println("Nomes depois do shuffle: " + nome);
 		}
 	}
 
 	public void onClickSortear(View v) {
 
-		this.edit_nome.setEnabled(false);
-		this.edit_email.setEnabled(false);
-
-		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-
-		while (this.email.get(n) == this.nome.get(sorteador.get(n))) {
-			Collections.shuffle(sorteador);
-		}
-
-		String[] recipients = new String[] { this.email.get(n) };
-		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
-		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Amigo Oculto");
-		emailIntent
-				.putExtra(Intent.EXTRA_TEXT, this.nome.get(sorteador.get(n)));
-		emailIntent.setType("plain/text");
-		this.nome.remove(sorteador.get(n));
-		this.email.remove(n);
-		n++;
-		if (this.email.size() == 0) {
+		if (email.isEmpty()) {
 			Toast.makeText(this, "Todos os nomes já foram sorteados!",
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
+		if (nome.size() != 1) {
+			while (nome.get(0).equals(clone.get(0))) {
+				Collections.shuffle(nome);
+				System.out.println("Realizou uma troca!");
+			}
+		}
+
+		edit_nome.setEnabled(false);
+		edit_email.setEnabled(false);
+
+		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+		String[] recipients = new String[] { email.get(0) };
+		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Amigo Oculto");
+		emailIntent.putExtra(Intent.EXTRA_TEXT, "Seu amigo secreto é o(a) "
+				+ nome.get(0));
+		emailIntent.setType("plain/text");
+		System.out.println("Nomes antes da exclusão: " + nome);
 		startActivity(Intent.createChooser(emailIntent, "Send Email"));
+		nome.remove(0);
+		email.remove(0);
+		System.out.println("Nomes depois da exclusão: " + nome);
+		System.out.println("CLONE: " + clone);
+		return;
+
 	}
 
 	@Override
